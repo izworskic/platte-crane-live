@@ -16,6 +16,7 @@ const personas:{id:PersonaId;label:string;short:string;matches:string[]}[]=[
 
 function mapsUrl(site:Site){return `https://www.google.com/maps/dir/?api=1&destination=${site.lat},${site.lon}`}
 function isPersonaMatch(site:Site,persona:PersonaId){const match=personas.find(p=>p.id===persona)?.matches??[];return site.bestFor.some(x=>match.includes(x))}
+function track(event:string,params:Record<string,string>){if(typeof window!=='undefined')window.dataLayer?.push(['event',event,params])}
 
 export default function CorridorMap(){
   const ref=useRef<HTMLDivElement>(null);
@@ -50,6 +51,7 @@ export default function CorridorMap(){
           ev.preventDefault();
           ev.stopPropagation();
           setSelectedId(site.id);
+          track('crane_map_marker_select',{site:site.id});
           map.easeTo({center:[site.lon,site.lat],zoom:10.4,duration:650});
         });
         const marker=new ml.Marker({element:el}).setLngLat([site.lon,site.lat]).addTo(map);
@@ -68,6 +70,7 @@ export default function CorridorMap(){
 
   function choose(site:Site){
     setSelectedId(site.id);
+    track('crane_destination_select',{site:site.id,persona});
     mapRef.current?.easeTo({center:[site.lon,site.lat],zoom:10.4,duration:650});
     if(focus)ref.current?.focus();
   }
@@ -76,7 +79,7 @@ export default function CorridorMap(){
     <div className="section-head"><div><p className="eyebrow">PUBLIC ACCESS ONLY</p><h2>Choose a crane-viewing stop</h2><p>Every numbered point is a real public or controlled-access destination. Pick how you are traveling, then click a marker or destination name to see exactly what it is and how to get there.</p></div><button onClick={()=>setFocus(v=>!v)}>{focus?'Exit focus':'Focus map'}</button></div>
 
     <div className="persona-picker" aria-label="Choose your trip style">
-      {personas.map(p=><button key={p.id} className={persona===p.id?'is-on':''} aria-pressed={persona===p.id} onClick={()=>setPersona(p.id)}><strong>{p.label}</strong><span>{p.short}</span></button>)}
+      {personas.map(p=><button key={p.id} className={persona===p.id?'is-on':''} aria-pressed={persona===p.id} onClick={()=>{setPersona(p.id);track('crane_persona_select',{persona:p.id})}}><strong>{p.label}</strong><span>{p.short}</span></button>)}
     </div>
 
     <div className="map-experience-grid">
@@ -99,9 +102,9 @@ export default function CorridorMap(){
       </div>
       <p className="trip-tip"><b>Trip tip:</b> {selected.visitTip}</p>
       <div className="map-actions">
-        <a className="primary-btn" href={mapsUrl(selected)} target="_blank" rel="noreferrer">Directions in Google Maps ↗</a>
-        <a className="secondary-btn" href={selected.source} target="_blank" rel="noreferrer">Official site details ↗</a>
-        {'bookingUrl' in selected&&selected.bookingUrl&&<a className="secondary-btn" href={selected.bookingUrl} target="_blank" rel="noreferrer">Tours / reservations ↗</a>}
+        <a className="primary-btn" href={mapsUrl(selected)} target="_blank" rel="noreferrer" onClick={()=>track('crane_google_maps_click',{site:selected.id,persona})}>Directions in Google Maps ↗</a>
+        <a className="secondary-btn" href={selected.source} target="_blank" rel="noreferrer" onClick={()=>track('crane_official_details_click',{site:selected.id})}>Official site details ↗</a>
+        {'bookingUrl' in selected&&selected.bookingUrl&&<a className="secondary-btn" href={selected.bookingUrl} target="_blank" rel="noreferrer" onClick={()=>track('crane_booking_click',{site:selected.id})}>Tours / reservations ↗</a>}
       </div>
       <p className="fine">Directions point only to the public destination above. Platte Crane Live does not publish private feeding locations or precise river-roost coordinates.</p>
     </article>
