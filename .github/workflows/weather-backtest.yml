@@ -20,6 +20,8 @@ jobs:
         run: npm run weather:fetch
       - name: Run weather-conditioned leave-one-year-out benchmark
         run: npm run backtest:weather
+      - name: Apply multi-metric release gate
+        run: node scripts/weather-release-decision.mjs
       - name: Upload weather benchmark artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -27,4 +29,5 @@ jobs:
           path: |
             data/historical-weather-era5.json
             artifacts/weather-model-benchmark.json
+            artifacts/weather-release-decision.json
           retention-days: 14
