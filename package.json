@@ -9,7 +9,10 @@
     "lint": "eslint .",
     "test": "node --test tests/model.test.mjs",
     "backtest": "node scripts/backtest.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "predev": "node scripts/assemble-crane-data.mjs",
+    "prebuild": "node scripts/assemble-crane-data.mjs",
+    "prebacktest": "node scripts/assemble-crane-data.mjs"
   },
   "dependencies": {
     "maplibre-gl": "^5.7.1",
