@@ -1,0 +1,30 @@
+name: Historical weather backtest
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  weather-backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Fetch ERA5 historical corridor weather
+        run: npm run weather:fetch
+      - name: Run weather-conditioned leave-one-year-out benchmark
+        run: npm run backtest:weather
+      - name: Upload weather benchmark artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: weather-backtest
+          path: |
+            data/historical-weather-era5.json
+            artifacts/weather-model-benchmark.json
+          retention-days: 14
