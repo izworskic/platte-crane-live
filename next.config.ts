@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  basePath: '/national-tools/platte-crane-live',
   images: { remotePatterns: [] },
   async headers() {
     return [{ source: '/(.*)', headers: [
