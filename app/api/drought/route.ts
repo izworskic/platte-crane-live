@@ -1,0 +1,1 @@
+import {NextResponse} from 'next/server';import {fetchDroughtStates} from '@/lib/sources/droughtMonitor';export async function GET(){return NextResponse.json({states:await fetchDroughtStates(),source:'U.S. Drought Monitor',generatedAt:new Date().toISOString()})}

@@ -1,0 +1,1 @@
+import {NextResponse} from 'next/server';import {fetchDailyTemperatureNormals} from '@/lib/sources/climateNormals';export async function GET(){return NextResponse.json({normals:await fetchDailyTemperatureNormals(),source:'NOAA/NCEI 1991–2020 U.S. Climate Normals',generatedAt:new Date().toISOString()})}
