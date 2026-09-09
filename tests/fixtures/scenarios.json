@@ -1,0 +1,22 @@
+[
+ {"id":"feb-15k-rising","name":"February, 15k cranes and rapidly rising","mode":"SPRING_LIVE","count":15000,"pulse":"SURGING","usefulState":"early surge guidance"},
+ {"id":"early-march-surge","name":"Early March surge","mode":"SPRING_LIVE","count":180000,"pulse":"SURGING","usefulState":"arrival surge"},
+ {"id":"near-peak-400k","name":"400k near peak","mode":"SPRING_LIVE","count":400000,"pulse":"HOLDING","usefulState":"high abundance"},
+ {"id":"record-700k","name":"700k record-level abundance","mode":"SPRING_LIVE","count":700000,"pulse":"HOLDING","usefulState":"record-level abundance with uncertainty"},
+ {"id":"plateau","name":"Plateau","mode":"SPRING_LIVE","count":410000,"pulse":"HOLDING","usefulState":"plateau"},
+ {"id":"late-march-departure","name":"Late-March rapid departure","mode":"SPRING_LIVE","count":120000,"pulse":"DEPARTING RAPIDLY","usefulState":"departure warning"},
+ {"id":"april-15k","name":"April 15k remaining","mode":"SPRING_LIVE","count":15000,"pulse":"EASING","usefulState":"late-season low abundance"},
+ {"id":"official-zero-context","name":"Zero observed during aerial survey but nonzero contextual evidence","mode":"SPRING_LIVE","count":0,"pulse":"HOLDING","usefulState":"official zero preserved; no silent biological zero"},
+ {"id":"stale-crane-trust","name":"Stale Crane Trust survey","mode":"SPRING_LIVE","sourceFailure":"craneTrustStale","usefulState":"official stale label and widened uncertainty"},
+ {"id":"usgs-outage","name":"USGS outage","mode":"SPRING_LIVE","sourceFailure":"usgs","usefulState":"river uncertain; abundance remains available"},
+ {"id":"nws-outage","name":"NWS outage","mode":"SPRING_LIVE","sourceFailure":"nws","usefulState":"weather unavailable; confidence reduced"},
+ {"id":"all-outage","name":"All live sources unavailable","mode":"HISTORICAL_GUIDANCE","sourceFailure":"all","usefulState":"historical guidance without misleading zeros"},
+ {"id":"severe-warning","name":"Severe-weather warning","mode":"SPRING_LIVE","safety":"Tornado Warning","usefulState":"unsafe override"},
+ {"id":"extreme-low-flow","name":"Extreme low Platte flows","mode":"SPRING_LIVE","riverCfs":250,"usefulState":"limited habitat proxy"},
+ {"id":"extreme-high-flow","name":"Extreme high Platte flows","mode":"SPRING_LIVE","riverCfs":6000,"usefulState":"limited habitat proxy"},
+ {"id":"january-overwintering","name":"Overwintering cranes in January","mode":"WINTER_WATCH","count":20000,"usefulState":"winter timing pressure, no precise spring count"},
+ {"id":"september-offseason","name":"September off-season","mode":"OFF_SEASON","usefulState":"2027 migration watch; no live probability"},
+ {"id":"dst-transition","name":"Daylight-saving transition","mode":"SPRING_LIVE","usefulState":"America/Chicago solar times remain valid"},
+ {"id":"malformed-upstream","name":"Malformed upstream response","mode":"HISTORICAL_GUIDANCE","sourceFailure":"malformed","usefulState":"no crash, unavailable source"},
+ {"id":"mobile-slow-network","name":"Mobile slow network","mode":"OFF_SEASON","network":"slow","usefulState":"decision content before map/camera"}
+]
