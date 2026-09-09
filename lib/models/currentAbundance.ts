@@ -22,6 +22,7 @@ export interface CurrentAbundanceEstimate {
 }
 
 export function estimateCurrentAbundance(all:CraneSurvey[],now=new Date(),_ctx?:OperationalContext):CurrentAbundanceEstimate|null{
+  void _ctx;
   const year=now.getUTCFullYear();
   const current=all.filter(r=>r.year===year&&r.surveyWeek>0).sort((a,b)=>a.date.localeCompare(b.date));
   if(current.length<2)return null;
