@@ -1,0 +1,1 @@
+import type {MetadataRoute} from 'next'; export default function sitemap():MetadataRoute.Sitemap{const b=process.env.NEXT_PUBLIC_SITE_URL||'https://platte-crane-live.vercel.app';return [{url:b,changeFrequency:'daily',priority:1},{url:`${b}/methodology`,changeFrequency:'monthly',priority:.6}]}

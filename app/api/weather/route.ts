@@ -1,0 +1,1 @@
+import {NextResponse} from 'next/server'; import {fetchActiveAlerts,fetchCorridorWeather} from '@/lib/sources/nws'; export async function GET(){const [weather,alerts]=await Promise.all([fetchCorridorWeather(),fetchActiveAlerts()]);return NextResponse.json({weather,alerts,source:'NOAA/NWS',generatedAt:new Date().toISOString()})}

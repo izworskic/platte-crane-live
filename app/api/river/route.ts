@@ -1,0 +1,1 @@
+import {NextResponse} from 'next/server'; import {fetchRiverGauges} from '@/lib/sources/usgs'; export async function GET(){return NextResponse.json({data:await fetchRiverGauges(),source:'USGS Water Services',generatedAt:new Date().toISOString()})}
