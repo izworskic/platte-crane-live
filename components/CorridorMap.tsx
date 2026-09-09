@@ -17,6 +17,7 @@ const personas:{id:PersonaId;label:string;short:string;matches:string[]}[]=[
 function mapsUrl(site:Site){return `https://www.google.com/maps/dir/?api=1&destination=${site.lat},${site.lon}`}
 function isPersonaMatch(site:Site,persona:PersonaId){const match=personas.find(p=>p.id===persona)?.matches??[];return site.bestFor.some(x=>match.includes(x))}
 function track(event:string,params:Record<string,string>){if(typeof window!=='undefined')window.dataLayer?.push(['event',event,params])}
+function moveMap(map:MLMap|null,site:Site){try{map?.easeTo({center:[site.lon,site.lat],zoom:10.4,duration:650})}catch{/* Destination selection must still work if map tiles/style fail. */}}
 
 export default function CorridorMap(){
   const ref=useRef<HTMLDivElement>(null);
@@ -31,34 +32,36 @@ export default function CorridorMap(){
     let alive=true;
     (async()=>{
       if(!ref.current||mapRef.current)return;
-      const ml=await import('maplibre-gl');
-      if(!alive||!ref.current)return;
-      const map=new ml.Map({container:ref.current,style:'https://tiles.openfreemap.org/styles/liberty',center:[-98.73,40.72],zoom:8.3,attributionControl:false});
-      map.addControl(new ml.NavigationControl({showCompass:false}),'top-right');
-      map.addControl(new ml.AttributionControl({compact:true}));
-      const bounds=new ml.LngLatBounds();
-      sites.forEach((site,index)=>{
-        bounds.extend([site.lon,site.lat]);
-        const el=document.createElement('button');
-        el.type='button';
-        el.className='map-marker';
-        el.dataset.siteId=site.id;
-        el.setAttribute('aria-label',`Open ${site.name}`);
-        el.title=site.name;
-        el.textContent=String(index+1);
-        el.addEventListener('click',ev=>{
-          ev.preventDefault();
-          ev.stopPropagation();
-          setSelectedId(site.id);
-          track('crane_map_marker_select',{site:site.id});
-          map.easeTo({center:[site.lon,site.lat],zoom:10.4,duration:650});
+      try{
+        const ml=await import('maplibre-gl');
+        if(!alive||!ref.current)return;
+        const map=new ml.Map({container:ref.current,style:'https://tiles.openfreemap.org/styles/liberty',center:[-98.73,40.72],zoom:8.3,attributionControl:false});
+        map.addControl(new ml.NavigationControl({showCompass:false}),'top-right');
+        map.addControl(new ml.AttributionControl({compact:true}));
+        const bounds=new ml.LngLatBounds();
+        sites.forEach((site,index)=>{
+          bounds.extend([site.lon,site.lat]);
+          const el=document.createElement('button');
+          el.type='button';
+          el.className='map-marker';
+          el.dataset.siteId=site.id;
+          el.setAttribute('aria-label',`Open ${site.name}`);
+          el.title=site.name;
+          el.textContent=String(index+1);
+          el.addEventListener('click',ev=>{
+            ev.preventDefault();
+            ev.stopPropagation();
+            setSelectedId(site.id);
+            track('crane_map_marker_select',{site:site.id});
+            moveMap(map,site);
+          });
+          new ml.Marker({element:el}).setLngLat([site.lon,site.lat]).addTo(map);
         });
-        new ml.Marker({element:el}).setLngLat([site.lon,site.lat]).addTo(map);
-      });
-      map.fitBounds(bounds,{padding:55,maxZoom:9.1,duration:0});
-      mapRef.current=map;
+        try{map.fitBounds(bounds,{padding:55,maxZoom:9.1,duration:0})}catch{}
+        mapRef.current=map;
+      }catch{/* The destination list remains fully usable without the basemap. */}
     })();
-    return()=>{alive=false;mapRef.current?.remove();mapRef.current=null};
+    return()=>{alive=false;try{mapRef.current?.remove()}catch{}mapRef.current=null};
   },[]);
 
   useEffect(()=>{
@@ -69,7 +72,7 @@ export default function CorridorMap(){
   function choose(site:Site){
     setSelectedId(site.id);
     track('crane_destination_select',{site:site.id,persona});
-    mapRef.current?.easeTo({center:[site.lon,site.lat],zoom:10.4,duration:650});
+    moveMap(mapRef.current,site);
     if(focus)ref.current?.focus();
   }
 
