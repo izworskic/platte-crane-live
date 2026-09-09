@@ -15,6 +15,7 @@
     "prebacktest": "node scripts/assemble-crane-data.mjs",
     "pretest": "node scripts/assemble-crane-data.mjs",
     "weather:fetch": "node scripts/fetch-historical-weather.mjs",
+    "prebacktest:weather": "node scripts/assemble-crane-data.mjs",
     "backtest:weather": "node scripts/backtest-weather.mjs"
   },
   "dependencies": {
