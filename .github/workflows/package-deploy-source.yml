@@ -1,0 +1,20 @@
+name: Package deploy source
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create source bundle
+        run: tar --exclude=.git --exclude=node_modules --exclude=.next -czf /tmp/platte-crane-source.tgz .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: platte-crane-source
+          path: /tmp/platte-crane-source.tgz
+          if-no-files-found: error
+          retention-days: 1
