@@ -1,7 +1,7 @@
 'use client';
 
 import {useEffect,useMemo,useRef,useState} from 'react';
-import type {Map as MLMap,Marker as MLMarker} from 'maplibre-gl';
+import type {Map as MLMap} from 'maplibre-gl';
 import sites from '@/data/viewing-sites.json';
 
 type Site=(typeof sites)[number];
@@ -21,7 +21,6 @@ function track(event:string,params:Record<string,string>){if(typeof window!=='un
 export default function CorridorMap(){
   const ref=useRef<HTMLDivElement>(null);
   const mapRef=useRef<MLMap|null>(null);
-  const markerRefs=useRef<Map<string,MLMarker>>(new Map());
   const [focus,setFocus]=useState(false);
   const [persona,setPersona]=useState<PersonaId>('first-time');
   const [selectedId,setSelectedId]=useState(sites[0].id);
@@ -54,13 +53,12 @@ export default function CorridorMap(){
           track('crane_map_marker_select',{site:site.id});
           map.easeTo({center:[site.lon,site.lat],zoom:10.4,duration:650});
         });
-        const marker=new ml.Marker({element:el}).setLngLat([site.lon,site.lat]).addTo(map);
-        markerRefs.current.set(site.id,marker);
+        new ml.Marker({element:el}).setLngLat([site.lon,site.lat]).addTo(map);
       });
       map.fitBounds(bounds,{padding:55,maxZoom:9.1,duration:0});
       mapRef.current=map;
     })();
-    return()=>{alive=false;markerRefs.current.clear();mapRef.current?.remove();mapRef.current=null};
+    return()=>{alive=false;mapRef.current?.remove();mapRef.current=null};
   },[]);
 
   useEffect(()=>{
