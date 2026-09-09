@@ -1,0 +1,1 @@
+.chart-point-hit{cursor:pointer;outline:none}.chart-hit-area{fill:transparent;stroke:none;pointer-events:all}.chart-point-hit:hover .chart-point,.chart-point-hit:focus .chart-point,.chart-point-hit.is-selected .chart-point{stroke:#ffbf47;stroke-width:4;opacity:1}.chart-point-hit:focus .chart-hit-area{stroke:#ffbf47;stroke-width:2;fill:rgba(255,191,71,.08)}
