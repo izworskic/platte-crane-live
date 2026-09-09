@@ -1,0 +1,8 @@
+{
+  "n": 72,
+  "baselineA": {"medianAbsoluteError":101750,"meanAbsoluteError":118561.11111111111,"MAPE":152.20423677433118,"sMAPE":67.51577776138957,"medianLogError":0.5542377678892665,"directionalAccuracyPct":65.27777777777779,"peakClassificationAccuracyPct":79.16666666666666},
+  "baselineB": {"medianAbsoluteError":96000,"meanAbsoluteError":135637.5,"MAPE":253.40016700501567,"sMAPE":72.96271886033013,"medianLogError":0.7174230681197544,"directionalAccuracyPct":6.944444444444445,"peakClassificationAccuracyPct":76.38888888888889},
+  "candidate": {"medianAbsoluteError":64369.57902226242,"meanAbsoluteError":102216.42517790297,"MAPE":127.90468144900704,"sMAPE":55.72809461462994,"medianLogError":0.4825403147666947,"directionalAccuracyPct":80.55555555555556,"peakClassificationAccuracyPct":81.94444444444444,"p10p90CoveragePct":86.11111111111111},
+  "medianErrorImprovementPct":32.948355185143306,
+  "method":"Leave-one-year-out. Candidate = 75% prior official count × median transition ratio from non-held-out years + 25% calendar-date median. Uncertainty radius is calibrated only from nested predictions in non-held-out years. Peak classification uses non-held-out-year peak climatology."
+}

@@ -1,0 +1,8 @@
+{
+  "station": "Central Nebraska representative climatology",
+  "normalPeriod": "1991-2020",
+  "sourceOrganization": "NOAA/NCEI",
+  "sourceUrl": "https://www.ncei.noaa.gov/access/us-climate-normals/",
+  "notes": "Representative March normals are retained as static provenance-bearing reference data. Production calculations compare daily forecast/observed values against matched calendar-day normals; instantaneous temperatures are never compared to daily-mean normals.",
+  "march": {"dailyMeanF": 39.5, "dailyMaxF": 52.8, "dailyMinF": 26.2}
+}

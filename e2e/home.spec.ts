@@ -1,0 +1,4 @@
+import { test, expect } from '@playwright/test';
+test('decision-first home remains usable', async({page})=>{ await page.goto('/'); await expect(page.getByRole('heading',{name:/PLATTE CRANE LIVE/i})).toBeVisible(); await expect(page.getByText(/2027 Migration Watch/i)).toBeVisible(); await expect(page.getByText(/Official survey/i).first()).toBeVisible(); await expect(page.getByText(/modeled/i).first()).toBeVisible(); });
+test('methodology is reachable',async({page})=>{ await page.goto('/methodology'); await expect(page.getByRole('heading',{name:/Methodology/i})).toBeVisible(); });
+test('mobile has no horizontal overflow',async({page})=>{ await page.goto('/'); const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth); expect(overflow).toBeLessThanOrEqual(1); });

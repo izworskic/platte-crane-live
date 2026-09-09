@@ -12,7 +12,8 @@
     "test:e2e": "playwright test",
     "predev": "node scripts/assemble-crane-data.mjs",
     "prebuild": "node scripts/assemble-crane-data.mjs",
-    "prebacktest": "node scripts/assemble-crane-data.mjs"
+    "prebacktest": "node scripts/assemble-crane-data.mjs",
+    "pretest": "node scripts/assemble-crane-data.mjs"
   },
   "dependencies": {
     "maplibre-gl": "^5.7.1",
