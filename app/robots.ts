@@ -1,1 +1,3 @@
-import type {MetadataRoute} from 'next'; export default function robots():MetadataRoute.Robots{return {rules:{userAgent:'*',allow:'/'},sitemap:`${process.env.NEXT_PUBLIC_SITE_URL||'https://platte-crane-live.vercel.app'}/sitemap.xml`}}
+import type {MetadataRoute} from 'next';
+const publicUrl='https://chrisizworski.com/national-tools/platte-crane-live';
+export default function robots():MetadataRoute.Robots{return {rules:{userAgent:'*',allow:'/'},sitemap:`${publicUrl}/sitemap.xml`}}
